@@ -3,11 +3,22 @@ import torch
 import torch.nn as nn
 from tqdm import tqdm
 from timm.utils import AverageMeter
+import types
 
 from openstl.models import SimVP_Model
 from openstl.utils import reduce_tensor
 from .base_method import Base_method
+from .losses import loss_maps,MSEloss, MAELoss, WeightLoss, MSCELoss
 
+
+# Copyright (c) CAIRI AI Lab. All rights reserved
+
+## code gotten from https://github.com/chengtan9907/OpenSTL
+
+## Modified by Alejandro Salgueiro Dorado for a Master Thesis Project, Wageningen University, 24.11.2023
+
+
+    
 
 class SimVP(Base_method):
     r"""SimVP
@@ -21,7 +32,7 @@ class SimVP(Base_method):
         Base_method.__init__(self, args, device, steps_per_epoch)
         self.model = self._build_model(self.config)
         self.model_optim, self.scheduler, self.by_epoch = self._init_optimizer(steps_per_epoch)
-        self.criterion = nn.MSELoss()
+        self.criterion = loss_maps[self.args.loss]()
 
     def _build_model(self, args):
         return SimVP_Model(**args).to(self.device)
