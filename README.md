@@ -77,11 +77,12 @@ OpenSTL is a comprehensive benchmark for spatio-temporal predictive learning, en
 
 This project has provided an environment setting file of conda, users can easily reproduce the environment by the following commands:
 ```shell
-git clone https://github.com/chengtan9907/OpenSTL
+git clone https://github.com/AlejandroSalgueiro/OpenSTL.git
 cd OpenSTL
 conda env create -f environment.yml
 conda activate OpenSTL
 python setup.py develop
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 ```
 
 <details close>

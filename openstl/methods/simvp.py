@@ -8,7 +8,7 @@ import types
 from openstl.models import SimVP_Model
 from openstl.utils import reduce_tensor
 from .base_method import Base_method
-from .losses import loss_maps,MSEloss, MAELoss, WeightLoss, MSCELoss
+from .losses import loss_maps
 
 
 # Copyright (c) CAIRI AI Lab. All rights reserved

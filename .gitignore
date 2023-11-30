@@ -112,6 +112,7 @@ venv.bak/
 *.pkl.json
 *.log.json
 *.jpg
+*.gif
 bash
 data
 data_set

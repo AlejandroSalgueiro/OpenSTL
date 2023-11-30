@@ -78,7 +78,7 @@ def create_parser():
     parser.add_argument('--overwrite', action='store_true', default=False,
                         help='Whether to allow overwriting the provided config file with args')
     parser.add_argument('--loss', default='mseloss', type=str,
-                        choices=['mseloss','maeloss','weightloss','msceloss'],
+                        choices=['mse','mae','weight','msce','weightmsce','vggperceptual'],
                         help='What loss function should be used (default:mse)')
 
     # Training parameters (optimizer)
@@ -170,7 +170,7 @@ def default_parser():
         'drop': 0,
         'drop_path': 0,
         'overwrite': False,
-        'loss': 'mseloss',
+        'loss': 'mse',
         # Training parameters (optimizer)
         'epoch': 200,
         'log_step': 1,
