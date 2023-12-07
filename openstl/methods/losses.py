@@ -6,12 +6,13 @@ import torchvision
 ## Modified by Alejandro Salgueiro Dorado for a Master Thesis Project, Wageningen University, 24.11.2023
 
 
-class WeightLoss():
+class WeightLoss(nn.Module):
     """
     Inspired by the weighted MSE loss for radar reflectivity from:
     Wu, D.; Wu, L.; Zhang, T.; Zhang, W.; Huang, J.; Wang, X. Short-Term Rainfall Prediction Based on Radar Echo Using an Improved Self-Attention PredRNN Deep Learning Model. Atmosphere 2022, 13, 1963. https://doi.org/10.3390/atmos13121963
     """
     def __init__(self,thresh1 = 20, thresh2 = 30):
+        super().__init__()
         self.thresh1 = thresh1
         self.thresh2 = thresh2
 
@@ -32,12 +33,13 @@ class WeightLoss():
         return loss
 
 
-class MSCELoss():
+class MSCELoss(nn.Module):
     """
     Inspired by the edge preserving MSE loss from:
     Pandey, R.K., Saha, N., Karmakar, S., Ramakrishnan, A.G. (2018). MSCE: An Edge-Preserving Robust Loss Function for Improving Super-Resolution Algorithms. In: Cheng, L., Leung, A., Ozawa, S. (eds) Neural Information Processing. ICONIP 2018. Lecture Notes in Computer Science(), vol 11306. Springer, Cham. https://doi.org/10.1007/978-3-030-04224-0_49 
     """
     def __init__(self,weight=0.85):
+         super().__init__()
          self.weight = weight
 
 
@@ -68,12 +70,12 @@ class MSCELoss():
 
         return loss
     
-class WeightMSCELoss():
+class WeightMSCELoss(nn.Module):
      '''
      Combination of Weighted loss and MSCELoss
      '''
-     def __init__(self,weight=0.85):
-          
+     def __init__(self,weight=0.85,weightloss = WeightLoss(), mseloss = nn.MSELoss()):
+          super().__init__()
           self.weight = weight
           self.weightloss = WeightLoss()
           self.mseloss = nn.MSELoss()
@@ -105,7 +107,7 @@ class WeightMSCELoss():
 
         return loss
 
-class VGGPerceptualLoss(torch.nn.Module):
+class VGGPerceptualLoss(nn.Module):
     '''
     copied from https://gist.github.com/alper111/8233cdb0414b4cb5853f2f730ab95a49 VGG perceputal loss
     author: Alper Ahmetoglu
