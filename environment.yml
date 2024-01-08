@@ -1,9 +1,14 @@
 name: openstl_weather
 channels:
-  - pytorch
   - conda-forge
   - defaults
+  - nvidia
+  - pytorch
 dependencies:
+  - pytorch==2.1.0 
+  - torchvision==0.16.0 
+  - torchaudio==2.1.0 
+  - pytorch-cuda=12.1
   - python=3.10.8=h4de0772_0_cpython
   - python-dateutil=2.8.2=pyhd8ed1ab_0
   - python-fastjsonschema=2.18.1=pyhd8ed1ab_0
@@ -115,7 +120,6 @@ dependencies:
   - pycparser=2.21=pyhd8ed1ab_0
   - pygments=2.16.1=pyhd8ed1ab_0
   - pysocks=1.7.1=pyh0701188_6
-  - pytorch-mutex=1.0=cpu
   - pytz=2023.3.post1=pyhd8ed1ab_0
   - pywinpty=2.0.12=py310h00ffb61_0
   - pyyaml=6.0.1=py310h8d17308_1

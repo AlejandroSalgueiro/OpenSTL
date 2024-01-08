@@ -80,9 +80,9 @@ This project has provided an environment setting file of conda, users can easily
 git clone https://github.com/AlejandroSalgueiro/OpenSTL.git
 cd OpenSTL
 conda env create -f environment.yml
-conda activate OpenSTL
+conda activate OpenSTL_weather
 python setup.py develop
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 # Install the right CUDA version
+conda install pytorch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 pytorch-cuda=12.1 -c pytorch -c nvidia # Install the right CUDA/CPU version for pytorch 2.1.0
 ```
 
 <details close>
