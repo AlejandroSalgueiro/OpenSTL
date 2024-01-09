@@ -51,7 +51,7 @@ def create_parser():
                         choices=['ConvLSTM', 'convlstm', 'E3DLSTM', 'e3dlstm', 'MAU', 'mau', 'MIM', 'mim', 
                                 'PhyDNet', 'phydnet', 'PredRNN', 'predrnn', 'PredRNNpp',  'predrnnpp', 
                                 'PredRNNv2', 'predrnnv2', 'SimVP', 'simvp', 'TAU', 'tau', 'MMVP', 'mmvp', 
-                                'SwinLSTM', 'swinlstm', 'swinlstm_d', 'swinlstm_b'],
+                                'SwinLSTM', 'swinlstm', 'swinlstm_d', 'swinlstm_b','wast'],
                         help='Name of video prediction method to train (default: "SimVP")')
     parser.add_argument('--config_file', '-c', default=None, type=str,
                         help='Path to the default config file')
@@ -61,6 +61,9 @@ def create_parser():
     parser.add_argument('--drop_path', type=float, default=0.0, help='Drop path rate for SimVP (default: 0.)')
     parser.add_argument('--overwrite', action='store_true', default=False,
                         help='Whether to allow overwriting the provided config file with args')
+    parser.add_argument('--loss', default='mseloss', type=str,
+                        choices=['mse','mae','weight','msce','weightmsce','vggperceptual'],
+                        help='What loss function should be used (default:mse)')
 
     # Training parameters (optimizer)
     parser.add_argument('--epoch', '-e', default=None, type=int, help='end epochs (default: 200)')
@@ -141,6 +144,7 @@ def default_parser():
         'drop': 0,
         'drop_path': 0,
         'overwrite': False,
+        'loss': 'mse',
         # Training parameters (optimizer)
         'epoch': 200,
         'log_step': 1,

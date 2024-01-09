@@ -5,6 +5,7 @@ import pytorch_lightning as pl
 from openstl.utils import print_log, check_dir
 from openstl.core import get_optim_scheduler
 from openstl.core import metric
+from .losses import loss_maps
 
 
 class Base_method(pl.LightningModule):
@@ -20,7 +21,7 @@ class Base_method(pl.LightningModule):
 
         self.save_hyperparameters()
         self.model = self._build_model(**args)
-        self.criterion = nn.MSELoss()
+        self.criterion = loss_maps[self.args.loss]()
 
     def _build_model(self):
         raise NotImplementedError

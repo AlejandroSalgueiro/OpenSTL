@@ -30,14 +30,11 @@
 
 ## Introduction
 
-OpenSTL is a comprehensive benchmark for spatio-temporal predictive learning, encompassing a broad spectrum of methods and diverse tasks, ranging from synthetic moving object trajectories to real-world scenarios such as human motion, driving scenes, traffic flow, and weather forecasting. OpenSTL offers a modular and extensible framework, excelling in user-friendliness, organization, and comprehensiveness. The codebase is organized into three abstracted layers, namely the core layer, algorithm layer, and user interface layer, arranged from the bottom to the top. We support PyTorch Lightning implementation [OpenSTL-Lightning](https://github.com/chengtan9907/OpenSTL/tree/OpenSTL-Lightning) (recommended) and naive PyTorch version [OpenSTL](https://github.com/chengtan9907/OpenSTL/tree/OpenSTL).
+OpenSTL is a comprehensive benchmark for spatio-temporal predictive learning, encompassing a broad spectrum of methods and diverse tasks, ranging from synthetic moving object trajectories to real-world scenarios such as human motion, driving scenes, traffic flow, and weather forecasting. OpenSTL offers a modular and extensible framework, excelling in user-friendliness, organization, and comprehensiveness. The codebase is organized into three abstracted layers, namely the core layer, algorithm layer, and user interface layer, arranged from the bottom to the top.
 
 <p align="center" width="100%">
-  <img src='https://github.com/chengtan9907/OpenSTL/assets/34480960/4f466441-a78a-405c-beb6-00a37e3d3827' width="90%">
-</p>
-<!-- <p align="center" width="100%">
   <img src='https://github-production-user-asset-6210df.s3.amazonaws.com/44519745/246222226-61e6b8e8-959c-4bb3-a1cd-c994b423de3f.png' width="90%">
-</p> -->
+</p>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -46,7 +43,7 @@ OpenSTL is a comprehensive benchmark for spatio-temporal predictive learning, en
 <details open>
 <summary>Major Features and Plans</summary>
 
-- **Flexiable Code Design.**
+- **Flexable Code Design.**
   OpenSTL decomposes STL algorithms into `methods` (training and prediction), `models` (network architectures), and `modules`, while providing unified experiment API. Users can develop their own STL algorithms with flexible training strategies and networks for different STL tasks.
 
 - **Standard Benchmarks.**
@@ -72,9 +69,7 @@ OpenSTL is a comprehensive benchmark for spatio-temporal predictive learning, en
 
 ## News and Updates
 
-[2023-12-15] [OpenSTL-Lightning](https://github.com/chengtan9907/OpenSTL/tree/OpenSTL-Lightning) (`OpenSTL` v1.0.0) is released.
-
-[2023-09-23] The OpenSTL paper has been accepted by NeurIPS 2023 Dataset and Benchmark Track! [arXiv](https://arxiv.org/abs/2306.11249) / [Zhihu](https://zhuanlan.zhihu.com/p/640271275).
+[2023-09-23] The OpenSTL paper has been accepted by NeurIPS 2023 Dataset and Benchmark Track! [arXiv](https://arxiv.org/abs/2306.11249).
 
 [2023-06-19] `OpenSTL` v0.3.0 is released and will be enhanced in [#25](https://github.com/chengtan9907/OpenSTL/issues/25).
 
@@ -82,11 +77,13 @@ OpenSTL is a comprehensive benchmark for spatio-temporal predictive learning, en
 
 This project has provided an environment setting file of conda, users can easily reproduce the environment by the following commands:
 ```shell
-git clone https://github.com/chengtan9907/OpenSTL
+git clone https://github.com/AlejandroSalgueiro/OpenSTL.git
 cd OpenSTL
 conda env create -f environment.yml
-conda activate OpenSTL
+conda activate OpenSTL_weather
 python setup.py develop
+conda install pytorch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 pytorch-cuda=12.1 -c pytorch -c nvidia # Install the right CUDA/CPU version for pytorch 2.1.0
+pip install pytorch-lightning==2.1.3
 ```
 
 <details close>
@@ -143,19 +140,19 @@ We support various spatiotemporal prediction methods and provide [benchmarks](ht
     <summary>Currently supported methods</summary>
 
     - [x] [ConvLSTM](https://arxiv.org/abs/1506.04214) (NeurIPS'2015)
+    - [x] [PredNet](https://openreview.net/forum?id=B1ewdt9xe) (ICLR'2017)
     - [x] [PredRNN](https://dl.acm.org/doi/abs/10.5555/3294771.3294855) (NeurIPS'2017)
     - [x] [PredRNN++](https://arxiv.org/abs/1804.06300) (ICML'2018)
     - [x] [E3D-LSTM](https://openreview.net/forum?id=B1lKS2AqtX) (ICLR'2018)
     - [x] [MIM](https://arxiv.org/abs/1811.07490) (CVPR'2019)
+    - [x] [CrevNet](https://openreview.net/forum?id=B1lKS2AqtX) (ICLR'2020)
     - [x] [PhyDNet](https://arxiv.org/abs/2003.01460) (CVPR'2020)
     - [x] [MAU](https://openreview.net/forum?id=qwtfY-3ibt7) (NeurIPS'2021)
     - [x] [PredRNN.V2](https://arxiv.org/abs/2103.09504v4) (TPAMI'2022)
     - [x] [SimVP](https://arxiv.org/abs/2206.05099) (CVPR'2022)
     - [x] [SimVP.V2](https://arxiv.org/abs/2211.12509) (ArXiv'2022)
     - [x] [TAU](https://arxiv.org/abs/2206.12126) (CVPR'2023)
-    - [x] [MMVP](https://arxiv.org/abs/2308.16154) (ICCV'2023)
-    - [x] [SwinLSTM](https://arxiv.org/abs/2308.09891) (ICCV'2023)
-    - [x] WaST (AAAI'2024)
+    - [x] [DMVFN](https://arxiv.org/abs/2303.09875) (CVPR'2023)
 
     </details>
 
@@ -244,7 +241,7 @@ This project is released under the [Apache 2.0 license](LICENSE). See `LICENSE` 
 
 ## Acknowledgement
 
-OpenSTL is an open-source project for STL algorithms created by researchers in **CAIRI AI Lab**. We encourage researchers interested in video and weather prediction to contribute to OpenSTL! We borrow the official implementations of [ConvLSTM](https://arxiv.org/abs/1506.04214), [PredNet](https://arxiv.org/abs/1605.08104), [PredRNN](https://dl.acm.org/doi/abs/10.5555/3294771.3294855) variants, [E3D-LSTM](https://openreview.net/forum?id=B1lKS2AqtX), [MAU](https://arxiv.org/abs/1811.07490), [PhyDNet](https://arxiv.org/abs/2003.01460), [MMVP](https://arxiv.org/abs/2308.16154), and [SwinLSTM](https://arxiv.org/abs/2308.09891).
+OpenSTL is an open-source project for STL algorithms created by researchers in **CAIRI AI Lab**. We encourage researchers interested in video and weather prediction to contribute to OpenSTL! We borrow the official implementations of [ConvLSTM](https://arxiv.org/abs/1506.04214), [PredNet](https://arxiv.org/abs/1605.08104), [PredRNN](https://dl.acm.org/doi/abs/10.5555/3294771.3294855) variants, [E3D-LSTM](https://openreview.net/forum?id=B1lKS2AqtX), [MAU](https://arxiv.org/abs/1811.07490), [CrevNet](https://openreview.net/forum?id=B1eY_pVYvB), [PhyDNet](https://arxiv.org/abs/2003.01460), and [DMVFN](https://arxiv.org/abs/2303.09875).
 
 ## Citation
 
