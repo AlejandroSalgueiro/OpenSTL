@@ -21,7 +21,7 @@ class Base_method(pl.LightningModule):
 
         self.save_hyperparameters()
         self.model = self._build_model(**args)
-        self.criterion = loss_maps[self.args.loss]()
+        self.criterion = loss_maps[args["loss"]]()
 
     def _build_model(self):
         raise NotImplementedError

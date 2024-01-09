@@ -41,7 +41,7 @@ class BaseExperiment(object):
 
     def _init_trainer(self, args, callbacks, strategy):
         trainer_config = {
-            'devices': args.gpus,  # Use the all GPUs
+            'devices': "auto",  # Use the all GPUs
             'max_epochs': args.epoch,  # Maximum number of epochs to train for
             "strategy": strategy, # 'ddp', 'deepspeed_stage_2', 'ddp_find_unused_parameters_false'
             'accelerator': 'gpu',  # Use distributed data parallel
