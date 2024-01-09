@@ -41,7 +41,7 @@ class BaseExperiment(object):
 
     def _init_trainer(self, args, callbacks, strategy):
         trainer_config = {
-            'devices': "auto",  # Use the all GPUs
+            'devices': args.gpus,  # Use the all GPUs
             'max_epochs': args.epoch,  # Maximum number of epochs to train for
             "strategy": strategy, # 'ddp', 'deepspeed_stage_2', 'ddp_find_unused_parameters_false'
             'accelerator': 'gpu',  # Use distributed data parallel
@@ -122,7 +122,7 @@ class BaseExperiment(object):
             _tmp_input = torch.ones(1, args.total_length, Hp, Wp, Cp).to(device)
             _tmp_flag = torch.ones(1, args.aft_seq_length - 1, Hp, Wp, Cp).to(device)
             input_dummy = (_tmp_input, _tmp_flag)
-        elif args.method in ['swinlstm_d', 'swinlstm_b']:
+        elif args.method in ['swinlstm_d', 'swinlstm_b','swinlstm']:
             input_dummy = torch.ones(1, self.args.total_length, H, W, C).to(device)
         elif args.method == 'predrnnv2':
             Hp, Wp = H // args.patch_size, W // args.patch_size
