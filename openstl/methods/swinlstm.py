@@ -18,7 +18,7 @@ class SwinLSTM_D(Base_method):
         depths_downsample = [int(x) for x in self.hparams.depths_downsample.split(',')]
         depths_upsample = [int(x) for x in self.hparams.depths_upsample.split(',')]
         num_heads = [int(x) for x in self.hparams.num_heads.split(',')]
-        return SwinLSTM_D_Model(depths_downsample, depths_upsample, num_heads, self.hparams)       
+        return SwinLSTM_D_Model(depths_downsample, depths_upsample, num_heads, self.hparams, args["loss"])       
     
     def forward(self, batch_x, batch_y, **kwargs):
         """Forward the model"""
@@ -43,4 +43,4 @@ class SwinLSTM_B(SwinLSTM_D):
        SwinLSTM_D.__init__(self, **args) 
     
     def _build_model(self, **args):
-        return SwinLSTM_B_Model(self.hparams)
+        return SwinLSTM_B_Model(self.hparams, args["loss"])

@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 
 from openstl.modules import DownSample, UpSample, STconvert
+from openstl.methods.losses import loss_maps
 
 class SwinLSTM_D_Model(nn.Module):
     r"""SwinLSTM 
@@ -10,7 +11,7 @@ class SwinLSTM_D_Model(nn.Module):
 
     """
 
-    def __init__(self, depths_downsample, depths_upsample, num_heads, configs, **kwargs):
+    def __init__(self, depths_downsample, depths_upsample, num_heads, configs, loss_func, **kwargs):
         super(SwinLSTM_D_Model, self).__init__()
         T, C, H, W = configs.in_shape
         assert H == W, 'Only support H = W for image input'
@@ -24,7 +25,7 @@ class SwinLSTM_D_Model(nn.Module):
         self.Upsample = UpSample(img_size=H, patch_size=configs.patch_size, in_chans=C,
                                      embed_dim=configs.embed_dim, depths_upsample=depths_upsample,
                                      num_heads=num_heads, window_size=configs.window_size)
-        self.MSE_criterion = nn.MSELoss()
+        self.criterion = loss_maps[loss_func]()
 
     def forward(self, frames_tensor, **kwargs):
         # [batch, length, height, width, channel] -> [batch, length, channel, height, width]
@@ -52,14 +53,14 @@ class SwinLSTM_D_Model(nn.Module):
         # [length, batch, channel, height, width] -> [batch, length, height, width, channel]
         next_frames = torch.stack(next_frames, dim=0).permute(1, 0, 3, 4, 2).contiguous()
         if kwargs.get('return_loss', True):
-            loss = self.MSE_criterion(next_frames, frames_tensor[:, 1:])
+            loss = self.criterion(next_frames, frames_tensor[:, 1:])
         else:
             loss = None
 
         return next_frames, loss
 
 class SwinLSTM_B_Model(nn.Module):
-    def __init__(self, configs, **kwargs):
+    def __init__(self, configs, loss_func, **kwargs):
         super(SwinLSTM_B_Model, self).__init__()
         T, C, H, W = configs.in_shape
         assert H == W, 'Only support H = W for image input'
@@ -67,7 +68,7 @@ class SwinLSTM_B_Model(nn.Module):
         self.ST = STconvert(img_size=H, patch_size=configs.patch_size, in_chans=C, 
                             embed_dim=configs.embed_dim, depths=configs.depths,
                             num_heads=configs.num_heads, window_size=configs.window_size)
-        self.MSE_criterion = nn.MSELoss()
+        self.criterion = loss_maps[loss_func]()
 
     def forward(self, frames_tensor, **kwargs):
         # [batch, length, height, width, channel] -> [batch, length, channel, height, width]
@@ -92,7 +93,7 @@ class SwinLSTM_B_Model(nn.Module):
         # [length, batch, channel, height, width] -> [batch, length, height, width, channel]
         next_frames = torch.stack(next_frames, dim=0).permute(1, 0, 3, 4, 2).contiguous()
         if kwargs.get('return_loss', True):
-            loss = self.MSE_criterion(next_frames, frames_tensor[:, 1:])
+            loss = self.criterion(next_frames, frames_tensor[:, 1:])
         else:
             loss = None
 
