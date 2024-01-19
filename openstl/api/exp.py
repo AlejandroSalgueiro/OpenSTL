@@ -13,6 +13,7 @@ from openstl.utils import (get_dataset, measure_throughput, SetupCallback, Epoch
 
 import argparse
 from pytorch_lightning import seed_everything, Trainer
+from pytorch_lightning.loggers import TensorBoardLogger
 import pytorch_lightning.callbacks as plc
 
 

@@ -21,6 +21,7 @@ class Base_method(pl.LightningModule):
 
         self.save_hyperparameters()
         self.model = self._build_model(**args)
+        self.args = args
         self.criterion = loss_maps[args["loss"]]()
 
     def _build_model(self):
@@ -78,5 +79,5 @@ class Base_method(pl.LightningModule):
             folder_path = check_dir(osp.join(self.hparams.save_dir, 'saved'))
 
             for np_data in ['metrics', 'inputs', 'trues', 'preds']:
-                np.save(osp.join(folder_path, np_data + '.npy'), results_all[np_data])
+                np.save(osp.join(folder_path, np_data + f'_{self.args["model_type"]}_{self.args["loss"]}_{self.args["epoch"]}epochs.npy'), results_all[np_data])
         return results_all
