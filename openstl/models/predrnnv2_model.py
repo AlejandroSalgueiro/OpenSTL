@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from openstl.modules import SpatioTemporalLSTMCellv2
+from openstl.methods.losses import loss_maps
 
 
 class PredRNNv2_Model(nn.Module):
@@ -13,7 +14,7 @@ class PredRNNv2_Model(nn.Module):
 
     """
 
-    def __init__(self, num_layers, num_hidden, configs, **kwargs):
+    def __init__(self, num_layers, num_hidden, configs, loss_func, **kwargs):
         super(PredRNNv2_Model, self).__init__()
         T, C, H, W = configs.in_shape
 
@@ -26,7 +27,7 @@ class PredRNNv2_Model(nn.Module):
 
         height = H // configs.patch_size
         width = W // configs.patch_size
-        self.MSE_criterion = nn.MSELoss()
+        self.criterion = loss_maps[loss_func]()
 
         for i in range(num_layers):
             in_channel = self.frame_channel if i == 0 else num_hidden[i - 1]
@@ -117,7 +118,7 @@ class PredRNNv2_Model(nn.Module):
         # [length, batch, channel, height, width] -> [batch, length, height, width, channel]
         next_frames = torch.stack(next_frames, dim=0).permute(1, 0, 3, 4, 2).contiguous()
         if return_loss:
-            loss = self.MSE_criterion(next_frames, frames_tensor[:, 1:]) + \
+            loss = self.criterion(next_frames, frames_tensor[:, 1:]) + \
                 self.configs.decouple_beta * decouple_loss
         else:
             loss = None

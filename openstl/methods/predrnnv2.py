@@ -16,4 +16,4 @@ class PredRNNv2(PredRNN):
     def _build_model(self, **args):
         num_hidden = [int(x) for x in self.hparams.num_hidden.split(',')]
         num_layers = len(num_hidden)
-        return PredRNNv2_Model(num_layers, num_hidden, self.hparams)
+        return PredRNNv2_Model(num_layers, num_hidden, self.hparams, args["loss"])
