@@ -31,7 +31,7 @@ class SetupCallback(Callback):
             for handler in logging.root.handlers[:]:
                 logging.root.removeHandler(handler)
             logging.basicConfig(level=logging.INFO,
-                filename=osp.join(self.save_dir, '{}_{}.log'.format(self.prefix, self.setup_time)),
+                filename=osp.join(self.save_dir, '{}_{}_{}epochs_{}.log'.format(self.args.method, self.args.loss, self.args.epoch, self.args.model_num)),
                 filemode='a', format='%(asctime)s - %(message)s')
             # print env info
             print_log('Environment info:\n' + dash_line + env_info + '\n' + dash_line)

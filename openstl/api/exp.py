@@ -3,6 +3,8 @@
 import sys
 import time
 import os.path as osp
+import os
+import numpy as np
 from fvcore.nn import FlopCountAnalysis, flop_count_table
 
 import torch
@@ -27,7 +29,16 @@ class BaseExperiment(object):
         self.method = None
         self.args.method = self.args.method.lower()
         self._dist = self.args.dist
-
+        
+        filename_log = f"work_dirs/custom_exp/{self.args.method}_{self.args.loss}_{self.args.epoch}epochs_1"
+        if os.path.exists(filename_log+".log"):
+            i = 2
+            while os.path.exists(f"{filename_log}_{i}.log"):
+                i += 1
+            self.args.model_num = i
+        else:
+            self.args.model_num = 1
+        
         base_dir = args.res_dir if args.res_dir is not None else 'work_dirs'
         save_dir = osp.join(base_dir, args.ex_name if not args.ex_name.startswith(args.res_dir) \
             else args.ex_name.split(args.res_dir+'/')[-1])
@@ -39,6 +50,8 @@ class BaseExperiment(object):
             test_mean=self.data.test_mean, test_std=self.data.test_std, save_dir=save_dir, **self.config)
         callbacks, self.save_dir = self._load_callbacks(args, save_dir, ckpt_dir)
         self.trainer = self._init_trainer(self.args, callbacks, strategy)
+        
+        
 
     def _init_trainer(self, args, callbacks, strategy):
         trainer_config = {

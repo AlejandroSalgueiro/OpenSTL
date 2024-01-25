@@ -79,5 +79,7 @@ class Base_method(pl.LightningModule):
             folder_path = check_dir(osp.join(self.hparams.save_dir, 'saved'))
 
             for np_data in ['metrics', 'inputs', 'trues', 'preds']:
-                np.save(osp.join(folder_path, np_data + f'_{self.args["model_type"]}_{self.args["loss"]}_{self.args["epoch"]}epochs.npy'), results_all[np_data])
+                
+                np.save(osp.join(folder_path, np_data + f'_{self.args["method"]}_{self.args["loss"]}_{self.args["epoch"]}epochs_{self.args["model_num"]}.npy'), results_all[np_data])
+
         return results_all
