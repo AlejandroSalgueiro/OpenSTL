@@ -17,6 +17,7 @@ import argparse
 from pytorch_lightning import seed_everything, Trainer
 from pytorch_lightning.loggers import TensorBoardLogger
 import pytorch_lightning.callbacks as plc
+from pytorch_lightning.profiler import PyTorchProfiler
 
 
 class BaseExperiment(object):
@@ -30,6 +31,7 @@ class BaseExperiment(object):
         self.args.method = self.args.method.lower()
         self._dist = self.args.dist
         
+        
         filename_log = f"work_dirs/custom_exp/{self.args.method}_{self.args.loss}_{self.args.epoch}epochs_1"
         if os.path.exists(filename_log+".log"):
             i = 2
@@ -39,6 +41,13 @@ class BaseExperiment(object):
         else:
             self.args.model_num = 1
         
+        self.logger = TensorBoardLogger('tb_logs', name=f'{self.args.method}_{self.args.loss}_{self.args.epoch}epochs_{self.args.model_num}')
+        self.profiler = PyTorchProfiler(
+            on_trace_ready=torch.profiler.tensorboard_trace_handler('tb_logs/profiler0'),
+            trace_memory=True,
+            schedule=torch.profiler.schedule(skip_first=10, wait=0, warmup=1, active=20)
+        )
+           
         base_dir = args.res_dir if args.res_dir is not None else 'work_dirs'
         save_dir = osp.join(base_dir, args.ex_name if not args.ex_name.startswith(args.res_dir) \
             else args.ex_name.split(args.res_dir+'/')[-1])
@@ -55,11 +64,14 @@ class BaseExperiment(object):
 
     def _init_trainer(self, args, callbacks, strategy):
         trainer_config = {
+            'profiler': self.profiler,
+            'logger': self.logger,
             'devices': args.gpus,  # Use the all GPUs
             'max_epochs': args.epoch,  # Maximum number of epochs to train for
             "strategy": strategy, # 'ddp', 'deepspeed_stage_2', 'ddp_find_unused_parameters_false'
             'accelerator': 'gpu',  # Use distributed data parallel
             'callbacks': callbacks,
+            "log_every_n_steps": 1,
         }
         return Trainer.from_argparse_args(argparse.Namespace(**trainer_config))
 
@@ -86,7 +98,6 @@ class BaseExperiment(object):
             save_last=True,
             dirpath=ckpt_dir,
             verbose=True,
-            every_n_epochs=args.log_step,
         )
         
         epochend_callback = EpochEndCallback()
