@@ -32,8 +32,8 @@ class BaseExperiment(object):
         self._dist = self.args.dist
         
         
-        filename_log = f"work_dirs/custom_exp/{self.args.method}_{self.args.loss}_{self.args.epoch}epochs_1"
-        if os.path.exists(filename_log+".log"):
+        filename_log = f"work_dirs/custom_exp/{self.args.method}_{self.args.loss}_{self.args.epoch}epochs"
+        if os.path.exists(filename_log+"_1.log"):
             i = 2
             while os.path.exists(f"{filename_log}_{i}.log"):
                 i += 1
