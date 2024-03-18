@@ -1,0 +1,451 @@
+2024-03-03 20:24:44,417 - Environment info:
+------------------------------------------------------------
+sys.platform: win32
+Python: 3.10.8 | packaged by conda-forge | (main, Nov 22 2022, 08:16:33) [MSC v.1929 64 bit (AMD64)]
+CUDA available: True
+CUDA_HOME: C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3
+NVCC: Not Available
+GPU 0: NVIDIA GeForce RTX 4080
+GCC: <built-in method strip of str object at 0x000001F6BEA6A790>
+PyTorch: 2.1.0
+PyTorch compiling details: PyTorch built with:
+  - C++ Version: 199711
+  - MSVC 192930151
+  - Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v3.1.1 (Git Hash 64f6bcbcbab628e96f33a62c3e975f8535a7bde4)
+  - OpenMP 2019
+  - LAPACK is enabled (usually provided by MKL)
+  - CPU capability usage: AVX512
+  - CUDA Runtime 12.1
+  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90
+  - CuDNN 8.8.1  (built against CUDA 12.0)
+  - Magma 2.5.4
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=12.1, CUDNN_VERSION=8.8.1, CXX_COMPILER=C:/cb/pytorch_1000000000000/work/tmp_bin/sccache-cl.exe, CXX_FLAGS=/DWIN32 /D_WINDOWS /GR /EHsc /bigobj /FS -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE /utf-8 /wd4624 /wd4068 /wd4067 /wd4267 /wd4661 /wd4717 /wd4244 /wd4804 /wd4273, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_DISABLE_GPU_ASSERTS=OFF, TORCH_VERSION=2.1.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=OFF, USE_NNPACK=OFF, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+TorchVision: 0.16.0
+OpenCV: 4.8.1
+openstl: 1.0.0
+------------------------------------------------------------
+
+2024-03-03 20:24:44,417 - 
+device: 	cuda	
+dist: 	False	
+res_dir: 	work_dirs	
+ex_name: 	custom_exp	
+fp16: 	False	
+torchscript: 	False	
+seed: 	42	
+fps: 	False	
+test: 	False	
+deterministic: 	False	
+batch_size: 	4	
+val_batch_size: 	1	
+num_workers: 	8	
+data_root: 	./data	
+dataname: 	custom	
+pre_seq_length: 	12	
+aft_seq_length: 	12	
+total_length: 	24	
+use_augment: 	False	
+use_prefetcher: 	False	
+drop_last: 	False	
+method: 	simvp	
+config_file: 	None	
+model_type: 	swin	
+drop: 	0.1	
+drop_path: 	0.1	
+overwrite: 	False	
+loss: 	mse	
+epoch: 	50	
+log_step: 	1	
+opt: 	adam	
+opt_eps: 	None	
+opt_betas: 	None	
+momentum: 	0.9	
+weight_decay: 	0.0	
+clip_grad: 	None	
+clip_mode: 	norm	
+no_display_method_info: 	False	
+sched: 	onecycle	
+lr: 	0.001	
+lr_k_decay: 	1.0	
+warmup_lr: 	1e-06	
+min_lr: 	1e-06	
+final_div_factor: 	10000.0	
+warmup_epoch: 	5	
+decay_epoch: 	100	
+decay_rate: 	0.1	
+filter_bias_and_bn: 	False	
+gpus: 	[0]	
+metric_for_bestckpt: 	val_loss	
+metrics: 	['mae', 'mse']	
+in_shape: 	[12, 1, 144, 144]	
+N_S: 	4	
+N_T: 	8	
+hid_S: 	128	
+hid_T: 	1024	
+spatio_kernel_enc: 	3	
+spatio_kernel_dec: 	3	
+model_num: 	4	
+2024-03-03 20:24:44,419 - Model info:
+SimVP_Model(
+  (enc): Encoder(
+    (enc): Sequential(
+      (0): ConvSC(
+        (conv): BasicConv2d(
+          (conv): Conv2d(1, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): GroupNorm(2, 128, eps=1e-05, affine=True)
+          (act): SiLU()
+        )
+      )
+      (1): ConvSC(
+        (conv): BasicConv2d(
+          (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (norm): GroupNorm(2, 128, eps=1e-05, affine=True)
+          (act): SiLU()
+        )
+      )
+      (2): ConvSC(
+        (conv): BasicConv2d(
+          (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): GroupNorm(2, 128, eps=1e-05, affine=True)
+          (act): SiLU()
+        )
+      )
+      (3): ConvSC(
+        (conv): BasicConv2d(
+          (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+          (norm): GroupNorm(2, 128, eps=1e-05, affine=True)
+          (act): SiLU()
+        )
+      )
+    )
+  )
+  (dec): Decoder(
+    (dec): Sequential(
+      (0): ConvSC(
+        (conv): BasicConv2d(
+          (conv): Sequential(
+            (0): Conv2d(128, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (1): PixelShuffle(upscale_factor=2)
+          )
+          (norm): GroupNorm(2, 128, eps=1e-05, affine=True)
+          (act): SiLU()
+        )
+      )
+      (1): ConvSC(
+        (conv): BasicConv2d(
+          (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): GroupNorm(2, 128, eps=1e-05, affine=True)
+          (act): SiLU()
+        )
+      )
+      (2): ConvSC(
+        (conv): BasicConv2d(
+          (conv): Sequential(
+            (0): Conv2d(128, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+            (1): PixelShuffle(upscale_factor=2)
+          )
+          (norm): GroupNorm(2, 128, eps=1e-05, affine=True)
+          (act): SiLU()
+        )
+      )
+      (3): ConvSC(
+        (conv): BasicConv2d(
+          (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (norm): GroupNorm(2, 128, eps=1e-05, affine=True)
+          (act): SiLU()
+        )
+      )
+    )
+    (readout): Conv2d(128, 1, kernel_size=(1, 1), stride=(1, 1))
+  )
+  (hid): MidMetaNet(
+    (enc): Sequential(
+      (0): MetaBlock(
+        (block): SwinSubBlock(
+          (norm1): LayerNorm((1536,), eps=1e-05, elementwise_affine=True)
+          (attn): WindowAttention(
+            (qkv): Linear(in_features=1536, out_features=4608, bias=True)
+            (attn_drop): Dropout(p=0.0, inplace=False)
+            (proj): Linear(in_features=1536, out_features=1536, bias=True)
+            (proj_drop): Dropout(p=0.1, inplace=False)
+            (softmax): Softmax(dim=-1)
+          )
+          (drop_path): DropPath(drop_prob=0.010)
+          (norm2): LayerNorm((1536,), eps=1e-05, elementwise_affine=True)
+          (mlp): Mlp(
+            (fc1): Linear(in_features=1536, out_features=12288, bias=True)
+            (act): GELU(approximate='none')
+            (drop1): Dropout(p=0.1, inplace=False)
+            (fc2): Linear(in_features=12288, out_features=1536, bias=True)
+            (drop2): Dropout(p=0.1, inplace=False)
+          )
+        )
+        (reduction): Conv2d(1536, 1024, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (1): MetaBlock(
+        (block): SwinSubBlock(
+          (norm1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (attn): WindowAttention(
+            (qkv): Linear(in_features=1024, out_features=3072, bias=True)
+            (attn_drop): Dropout(p=0.0, inplace=False)
+            (proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (proj_drop): Dropout(p=0.1, inplace=False)
+            (softmax): Softmax(dim=-1)
+          )
+          (drop_path): DropPath(drop_prob=0.023)
+          (norm2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Mlp(
+            (fc1): Linear(in_features=1024, out_features=8192, bias=True)
+            (act): GELU(approximate='none')
+            (drop1): Dropout(p=0.1, inplace=False)
+            (fc2): Linear(in_features=8192, out_features=1024, bias=True)
+            (drop2): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+      (2): MetaBlock(
+        (block): SwinSubBlock(
+          (norm1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (attn): WindowAttention(
+            (qkv): Linear(in_features=1024, out_features=3072, bias=True)
+            (attn_drop): Dropout(p=0.0, inplace=False)
+            (proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (proj_drop): Dropout(p=0.1, inplace=False)
+            (softmax): Softmax(dim=-1)
+          )
+          (drop_path): DropPath(drop_prob=0.036)
+          (norm2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Mlp(
+            (fc1): Linear(in_features=1024, out_features=8192, bias=True)
+            (act): GELU(approximate='none')
+            (drop1): Dropout(p=0.1, inplace=False)
+            (fc2): Linear(in_features=8192, out_features=1024, bias=True)
+            (drop2): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+      (3): MetaBlock(
+        (block): SwinSubBlock(
+          (norm1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (attn): WindowAttention(
+            (qkv): Linear(in_features=1024, out_features=3072, bias=True)
+            (attn_drop): Dropout(p=0.0, inplace=False)
+            (proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (proj_drop): Dropout(p=0.1, inplace=False)
+            (softmax): Softmax(dim=-1)
+          )
+          (drop_path): DropPath(drop_prob=0.049)
+          (norm2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Mlp(
+            (fc1): Linear(in_features=1024, out_features=8192, bias=True)
+            (act): GELU(approximate='none')
+            (drop1): Dropout(p=0.1, inplace=False)
+            (fc2): Linear(in_features=8192, out_features=1024, bias=True)
+            (drop2): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+      (4): MetaBlock(
+        (block): SwinSubBlock(
+          (norm1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (attn): WindowAttention(
+            (qkv): Linear(in_features=1024, out_features=3072, bias=True)
+            (attn_drop): Dropout(p=0.0, inplace=False)
+            (proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (proj_drop): Dropout(p=0.1, inplace=False)
+            (softmax): Softmax(dim=-1)
+          )
+          (drop_path): DropPath(drop_prob=0.061)
+          (norm2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Mlp(
+            (fc1): Linear(in_features=1024, out_features=8192, bias=True)
+            (act): GELU(approximate='none')
+            (drop1): Dropout(p=0.1, inplace=False)
+            (fc2): Linear(in_features=8192, out_features=1024, bias=True)
+            (drop2): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+      (5): MetaBlock(
+        (block): SwinSubBlock(
+          (norm1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (attn): WindowAttention(
+            (qkv): Linear(in_features=1024, out_features=3072, bias=True)
+            (attn_drop): Dropout(p=0.0, inplace=False)
+            (proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (proj_drop): Dropout(p=0.1, inplace=False)
+            (softmax): Softmax(dim=-1)
+          )
+          (drop_path): DropPath(drop_prob=0.074)
+          (norm2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Mlp(
+            (fc1): Linear(in_features=1024, out_features=8192, bias=True)
+            (act): GELU(approximate='none')
+            (drop1): Dropout(p=0.1, inplace=False)
+            (fc2): Linear(in_features=8192, out_features=1024, bias=True)
+            (drop2): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+      (6): MetaBlock(
+        (block): SwinSubBlock(
+          (norm1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (attn): WindowAttention(
+            (qkv): Linear(in_features=1024, out_features=3072, bias=True)
+            (attn_drop): Dropout(p=0.0, inplace=False)
+            (proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (proj_drop): Dropout(p=0.1, inplace=False)
+            (softmax): Softmax(dim=-1)
+          )
+          (drop_path): DropPath(drop_prob=0.087)
+          (norm2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Mlp(
+            (fc1): Linear(in_features=1024, out_features=8192, bias=True)
+            (act): GELU(approximate='none')
+            (drop1): Dropout(p=0.1, inplace=False)
+            (fc2): Linear(in_features=8192, out_features=1024, bias=True)
+            (drop2): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+      (7): MetaBlock(
+        (block): SwinSubBlock(
+          (norm1): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (attn): WindowAttention(
+            (qkv): Linear(in_features=1024, out_features=3072, bias=True)
+            (attn_drop): Dropout(p=0.0, inplace=False)
+            (proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (proj_drop): Dropout(p=0.1, inplace=False)
+            (softmax): Softmax(dim=-1)
+          )
+          (drop_path): DropPath(drop_prob=0.100)
+          (norm2): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (mlp): Mlp(
+            (fc1): Linear(in_features=1024, out_features=8192, bias=True)
+            (act): GELU(approximate='none')
+            (drop1): Dropout(p=0.1, inplace=False)
+            (fc2): Linear(in_features=8192, out_features=1024, bias=True)
+            (drop2): Dropout(p=0.1, inplace=False)
+          )
+        )
+        (reduction): Conv2d(1024, 1536, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+  )
+)
+| module                   | #parameters or shape   | #flops     |
+|:-------------------------|:-----------------------|:-----------|
+| model                    | 0.199G                 | 0.369T     |
+|  enc.enc                 |  0.445M                |  21.175G   |
+|   enc.enc.0.conv         |   1.536K               |   0.446G   |
+|    enc.enc.0.conv.conv   |    1.28K               |    0.287G  |
+|    enc.enc.0.conv.norm   |    0.256K              |    0.159G  |
+|   enc.enc.1.conv         |   0.148M               |   9.213G   |
+|    enc.enc.1.conv.conv   |    0.148M              |    9.173G  |
+|    enc.enc.1.conv.norm   |    0.256K              |    39.813M |
+|   enc.enc.2.conv         |   0.148M               |   9.213G   |
+|    enc.enc.2.conv.conv   |    0.148M              |    9.173G  |
+|    enc.enc.2.conv.norm   |    0.256K              |    39.813M |
+|   enc.enc.3.conv         |   0.148M               |   2.303G   |
+|    enc.enc.3.conv.conv   |    0.148M              |    2.293G  |
+|    enc.enc.3.conv.norm   |    0.256K              |    9.953M  |
+|  dec                     |  1.477M                |  92.159G   |
+|   dec.dec                |   1.477M               |   92.128G  |
+|    dec.dec.0.conv        |    0.591M              |    9.213G  |
+|    dec.dec.1.conv        |    0.148M              |    9.213G  |
+|    dec.dec.2.conv        |    0.591M              |    36.851G |
+|    dec.dec.3.conv        |    0.148M              |    36.851G |
+|   dec.readout            |   0.129K               |   31.85M   |
+|    dec.readout.weight    |    (1, 128, 1, 1)      |            |
+|    dec.readout.bias      |    (1,)                |            |
+|  hid.enc                 |  0.197G                |  0.256T    |
+|   hid.enc.0              |   48.786M              |   63.275G  |
+|    hid.enc.0.block       |    47.212M             |    61.237G |
+|    hid.enc.0.reduction   |    1.574M              |    2.038G  |
+|   hid.enc.1.block        |   20.989M              |   27.235G  |
+|    hid.enc.1.block.norm1 |    2.048K              |    6.636M  |
+|    hid.enc.1.block.attn  |    4.199M              |    5.478G  |
+|    hid.enc.1.block.norm2 |    2.048K              |    6.636M  |
+|    hid.enc.1.block.mlp   |    16.786M             |    21.743G |
+|   hid.enc.2.block        |   20.989M              |   27.235G  |
+|    hid.enc.2.block.norm1 |    2.048K              |    6.636M  |
+|    hid.enc.2.block.attn  |    4.199M              |    5.478G  |
+|    hid.enc.2.block.norm2 |    2.048K              |    6.636M  |
+|    hid.enc.2.block.mlp   |    16.786M             |    21.743G |
+|   hid.enc.3.block        |   20.989M              |   27.235G  |
+|    hid.enc.3.block.norm1 |    2.048K              |    6.636M  |
+|    hid.enc.3.block.attn  |    4.199M              |    5.478G  |
+|    hid.enc.3.block.norm2 |    2.048K              |    6.636M  |
+|    hid.enc.3.block.mlp   |    16.786M             |    21.743G |
+|   hid.enc.4.block        |   20.989M              |   27.235G  |
+|    hid.enc.4.block.norm1 |    2.048K              |    6.636M  |
+|    hid.enc.4.block.attn  |    4.199M              |    5.478G  |
+|    hid.enc.4.block.norm2 |    2.048K              |    6.636M  |
+|    hid.enc.4.block.mlp   |    16.786M             |    21.743G |
+|   hid.enc.5.block        |   20.989M              |   27.235G  |
+|    hid.enc.5.block.norm1 |    2.048K              |    6.636M  |
+|    hid.enc.5.block.attn  |    4.199M              |    5.478G  |
+|    hid.enc.5.block.norm2 |    2.048K              |    6.636M  |
+|    hid.enc.5.block.mlp   |    16.786M             |    21.743G |
+|   hid.enc.6.block        |   20.989M              |   27.235G  |
+|    hid.enc.6.block.norm1 |    2.048K              |    6.636M  |
+|    hid.enc.6.block.attn  |    4.199M              |    5.478G  |
+|    hid.enc.6.block.norm2 |    2.048K              |    6.636M  |
+|    hid.enc.6.block.mlp   |    16.786M             |    21.743G |
+|   hid.enc.7              |   22.564M              |   29.273G  |
+|    hid.enc.7.block       |    20.989M             |    27.235G |
+|    hid.enc.7.reduction   |    1.574M              |    2.038G  |
+--------------------------------------------------------------------------------
+
+2024-03-03 20:37:00,928 - Epoch 1: Lr: 0.0000400 | Train Loss: 0.0082249 | Vali Loss: 0.0058053
+2024-03-03 20:43:09,980 - Epoch 2: Lr: 0.0000400 | Train Loss: 0.0055150 | Vali Loss: 0.0055041
+2024-03-03 20:49:18,910 - Epoch 3: Lr: 0.0000400 | Train Loss: 0.0048308 | Vali Loss: 0.0055332
+2024-03-03 20:55:22,514 - Epoch 4: Lr: 0.0000400 | Train Loss: 0.0046717 | Vali Loss: 0.0048578
+2024-03-03 21:01:31,686 - Epoch 5: Lr: 0.0000400 | Train Loss: 0.0043315 | Vali Loss: 0.0059237
+2024-03-03 21:07:34,998 - Epoch 6: Lr: 0.0000400 | Train Loss: 0.0042096 | Vali Loss: 0.0046860
+2024-03-03 21:13:43,683 - Epoch 7: Lr: 0.0000400 | Train Loss: 0.0041410 | Vali Loss: 0.0045471
+2024-03-03 21:19:52,315 - Epoch 8: Lr: 0.0000400 | Train Loss: 0.0039711 | Vali Loss: 0.0044650
+2024-03-03 21:26:02,232 - Epoch 9: Lr: 0.0000400 | Train Loss: 0.0038791 | Vali Loss: 0.0045375
+2024-03-03 21:32:05,717 - Epoch 10: Lr: 0.0000400 | Train Loss: 0.0037724 | Vali Loss: 0.0044869
+2024-03-03 21:38:09,207 - Epoch 11: Lr: 0.0000400 | Train Loss: 0.0036777 | Vali Loss: 0.0044775
+2024-03-03 21:44:12,692 - Epoch 12: Lr: 0.0000400 | Train Loss: 0.0035324 | Vali Loss: 0.0043632
+2024-03-03 21:50:21,541 - Epoch 13: Lr: 0.0000400 | Train Loss: 0.0034666 | Vali Loss: 0.0044192
+2024-03-03 21:56:25,057 - Epoch 14: Lr: 0.0000400 | Train Loss: 0.0033966 | Vali Loss: 0.0043631
+2024-03-03 22:02:37,156 - Epoch 15: Lr: 0.0000400 | Train Loss: 0.0032880 | Vali Loss: 0.0044870
+2024-03-03 22:08:44,393 - Epoch 16: Lr: 0.0000400 | Train Loss: 0.0031682 | Vali Loss: 0.0043528
+2024-03-03 22:15:02,015 - Epoch 17: Lr: 0.0000400 | Train Loss: 0.0032563 | Vali Loss: 0.0043844
+2024-03-03 22:21:41,379 - Epoch 18: Lr: 0.0000400 | Train Loss: 0.0030531 | Vali Loss: 0.0043324
+2024-03-03 22:28:51,660 - Epoch 19: Lr: 0.0000400 | Train Loss: 0.0029812 | Vali Loss: 0.0043571
+2024-03-03 22:35:46,838 - Epoch 20: Lr: 0.0000400 | Train Loss: 0.0028843 | Vali Loss: 0.0043896
+2024-03-03 22:42:41,131 - Epoch 21: Lr: 0.0000400 | Train Loss: 0.0029484 | Vali Loss: 0.0043920
+2024-03-03 22:49:35,401 - Epoch 22: Lr: 0.0000400 | Train Loss: 0.0028287 | Vali Loss: 0.0044314
+2024-03-03 22:56:30,007 - Epoch 23: Lr: 0.0000400 | Train Loss: 0.0027925 | Vali Loss: 0.0044055
+2024-03-03 23:03:24,243 - Epoch 24: Lr: 0.0000400 | Train Loss: 0.0027808 | Vali Loss: 0.0043316
+2024-03-03 23:10:23,840 - Epoch 25: Lr: 0.0000400 | Train Loss: 0.0026503 | Vali Loss: 0.0046755
+2024-03-03 23:17:18,784 - Epoch 26: Lr: 0.0000400 | Train Loss: 0.0025773 | Vali Loss: 0.0043065
+2024-03-03 23:24:18,716 - Epoch 27: Lr: 0.0000400 | Train Loss: 0.0025477 | Vali Loss: 0.0043802
+2024-03-03 23:31:12,942 - Epoch 28: Lr: 0.0000400 | Train Loss: 0.0024771 | Vali Loss: 0.0044086
+2024-03-03 23:38:07,106 - Epoch 29: Lr: 0.0000400 | Train Loss: 0.0024459 | Vali Loss: 0.0043069
+2024-03-03 23:45:01,332 - Epoch 30: Lr: 0.0000401 | Train Loss: 0.0024257 | Vali Loss: 0.0044424
+2024-03-03 23:51:55,528 - Epoch 31: Lr: 0.0000401 | Train Loss: 0.0024033 | Vali Loss: 0.0043262
+2024-03-03 23:58:50,849 - Epoch 32: Lr: 0.0000401 | Train Loss: 0.0023582 | Vali Loss: 0.0045695
+2024-03-04 00:05:45,156 - Epoch 33: Lr: 0.0000401 | Train Loss: 0.0023102 | Vali Loss: 0.0043756
+2024-03-04 00:12:39,414 - Epoch 34: Lr: 0.0000401 | Train Loss: 0.0022624 | Vali Loss: 0.0043945
+2024-03-04 00:19:34,895 - Epoch 35: Lr: 0.0000401 | Train Loss: 0.0022680 | Vali Loss: 0.0044535
+2024-03-04 00:26:29,165 - Epoch 36: Lr: 0.0000401 | Train Loss: 0.0021908 | Vali Loss: 0.0043986
+2024-03-04 00:33:23,468 - Epoch 37: Lr: 0.0000401 | Train Loss: 0.0021705 | Vali Loss: 0.0043282
+2024-03-04 00:40:17,732 - Epoch 38: Lr: 0.0000401 | Train Loss: 0.0020996 | Vali Loss: 0.0043461
+2024-03-04 00:47:12,779 - Epoch 39: Lr: 0.0000401 | Train Loss: 0.0020837 | Vali Loss: 0.0044477
+2024-03-04 00:54:50,300 - Epoch 40: Lr: 0.0000401 | Train Loss: 0.0020646 | Vali Loss: 0.0043552
+2024-03-04 01:02:30,993 - Epoch 41: Lr: 0.0000401 | Train Loss: 0.0020241 | Vali Loss: 0.0043758
+2024-03-04 01:10:12,281 - Epoch 42: Lr: 0.0000401 | Train Loss: 0.0020288 | Vali Loss: 0.0043660
+2024-03-04 01:17:52,815 - Epoch 43: Lr: 0.0000401 | Train Loss: 0.0019490 | Vali Loss: 0.0044041
+2024-03-04 01:25:30,547 - Epoch 44: Lr: 0.0000401 | Train Loss: 0.0019835 | Vali Loss: 0.0042520
+2024-03-04 01:33:12,663 - Epoch 45: Lr: 0.0000401 | Train Loss: 0.0019082 | Vali Loss: 0.0042917
+2024-03-04 01:40:49,175 - Epoch 46: Lr: 0.0000401 | Train Loss: 0.0018405 | Vali Loss: 0.0044127
+2024-03-04 01:48:26,899 - Epoch 47: Lr: 0.0000401 | Train Loss: 0.0018490 | Vali Loss: 0.0044259
+2024-03-04 01:56:03,297 - Epoch 48: Lr: 0.0000401 | Train Loss: 0.0018171 | Vali Loss: 0.0043446
+2024-03-04 02:03:39,803 - Epoch 49: Lr: 0.0000401 | Train Loss: 0.0017887 | Vali Loss: 0.0043786
+2024-03-04 02:04:01,788 - mse:92.67776489257812, mae:699.7286987304688

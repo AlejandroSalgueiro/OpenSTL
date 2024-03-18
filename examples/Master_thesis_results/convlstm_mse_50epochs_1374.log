@@ -1,0 +1,205 @@
+2024-02-22 10:40:56,158 - Environment info:
+------------------------------------------------------------
+sys.platform: win32
+Python: 3.10.8 | packaged by conda-forge | (main, Nov 22 2022, 08:16:33) [MSC v.1929 64 bit (AMD64)]
+CUDA available: True
+CUDA_HOME: C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3
+NVCC: Not Available
+GPU 0: NVIDIA GeForce RTX 4080
+GCC: <built-in method strip of str object at 0x0000018422662310>
+PyTorch: 2.1.0
+PyTorch compiling details: PyTorch built with:
+  - C++ Version: 199711
+  - MSVC 192930151
+  - Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v3.1.1 (Git Hash 64f6bcbcbab628e96f33a62c3e975f8535a7bde4)
+  - OpenMP 2019
+  - LAPACK is enabled (usually provided by MKL)
+  - CPU capability usage: AVX512
+  - CUDA Runtime 12.1
+  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90
+  - CuDNN 8.8.1  (built against CUDA 12.0)
+  - Magma 2.5.4
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=12.1, CUDNN_VERSION=8.8.1, CXX_COMPILER=C:/cb/pytorch_1000000000000/work/tmp_bin/sccache-cl.exe, CXX_FLAGS=/DWIN32 /D_WINDOWS /GR /EHsc /bigobj /FS -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE /utf-8 /wd4624 /wd4068 /wd4067 /wd4267 /wd4661 /wd4717 /wd4244 /wd4804 /wd4273, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_DISABLE_GPU_ASSERTS=OFF, TORCH_VERSION=2.1.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=OFF, USE_NNPACK=OFF, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+TorchVision: 0.16.0
+OpenCV: 4.8.1
+openstl: 1.0.0
+------------------------------------------------------------
+
+2024-02-22 10:40:56,158 - 
+device: 	cuda	
+dist: 	False	
+res_dir: 	work_dirs	
+ex_name: 	custom_exp	
+fp16: 	False	
+torchscript: 	False	
+seed: 	42	
+fps: 	False	
+test: 	False	
+deterministic: 	False	
+batch_size: 	4	
+val_batch_size: 	1	
+num_workers: 	8	
+data_root: 	./data	
+dataname: 	custom	
+pre_seq_length: 	12	
+aft_seq_length: 	12	
+total_length: 	24	
+use_augment: 	False	
+use_prefetcher: 	False	
+drop_last: 	False	
+method: 	convlstm	
+config_file: 	None	
+model_type: 	gSTA	
+drop: 	0.0	
+drop_path: 	0.1	
+overwrite: 	False	
+loss: 	mse	
+epoch: 	50	
+log_step: 	1	
+opt: 	adam	
+opt_eps: 	None	
+opt_betas: 	None	
+momentum: 	0.9	
+weight_decay: 	0.0	
+clip_grad: 	None	
+clip_mode: 	norm	
+no_display_method_info: 	False	
+sched: 	onecycle	
+lr: 	0.001	
+lr_k_decay: 	1.0	
+warmup_lr: 	1e-06	
+min_lr: 	1e-06	
+final_div_factor: 	10000.0	
+warmup_epoch: 	5	
+decay_epoch: 	100	
+decay_rate: 	0.1	
+filter_bias_and_bn: 	False	
+gpus: 	[0]	
+metric_for_bestckpt: 	val_loss	
+metrics: 	['mae', 'mse']	
+in_shape: 	[12, 1, 144, 144]	
+reverse_scheduled_sampling: 	0	
+r_sampling_step_1: 	25000	
+r_sampling_step_2: 	50000	
+r_exp_alpha: 	5000	
+scheduled_sampling: 	1	
+sampling_stop_iter: 	50000	
+sampling_start_value: 	1.0	
+sampling_changing_rate: 	2e-05	
+num_hidden: 	128,128,128,128	
+filter_size: 	5	
+stride: 	1	
+patch_size: 	2	
+layer_norm: 	0	
+model_num: 	2	
+2024-02-22 10:40:56,158 - Model info:
+ConvLSTM_Model(
+  (MSE_criterion): MSELoss()
+  (cell_list): ModuleList(
+    (0): ConvLSTMCell(
+      (conv_x): Sequential(
+        (0): Conv2d(4, 512, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), bias=False)
+      )
+      (conv_h): Sequential(
+        (0): Conv2d(128, 512, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), bias=False)
+      )
+      (conv_o): Sequential(
+        (0): Conv2d(256, 128, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), bias=False)
+      )
+      (conv_last): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    )
+    (1-3): 3 x ConvLSTMCell(
+      (conv_x): Sequential(
+        (0): Conv2d(128, 512, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), bias=False)
+      )
+      (conv_h): Sequential(
+        (0): Conv2d(128, 512, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), bias=False)
+      )
+      (conv_o): Sequential(
+        (0): Conv2d(256, 128, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), bias=False)
+      )
+      (conv_last): Conv2d(256, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+    )
+  )
+  (conv_last): Conv2d(128, 4, kernel_size=(1, 1), stride=(1, 1), bias=False)
+)
+| module                   | #parameters or shape   | #flops    |
+|:-------------------------|:-----------------------|:----------|
+| model                    | 14.928M                | 1.374T    |
+|  cell_list               |  14.928M               |  1.374T   |
+|   cell_list.0            |   2.542M               |   0.201T  |
+|    cell_list.0.conv_x.0  |    51.2K               |    6.105G |
+|    cell_list.0.conv_h.0  |    1.638M              |    0.195T |
+|    cell_list.0.conv_o.0  |    0.819M              |           |
+|    cell_list.0.conv_last |    32.768K             |           |
+|   cell_list.1            |   4.129M               |   0.391T  |
+|    cell_list.1.conv_x.0  |    1.638M              |    0.195T |
+|    cell_list.1.conv_h.0  |    1.638M              |    0.195T |
+|    cell_list.1.conv_o.0  |    0.819M              |           |
+|    cell_list.1.conv_last |    32.768K             |           |
+|   cell_list.2            |   4.129M               |   0.391T  |
+|    cell_list.2.conv_x.0  |    1.638M              |    0.195T |
+|    cell_list.2.conv_h.0  |    1.638M              |    0.195T |
+|    cell_list.2.conv_o.0  |    0.819M              |           |
+|    cell_list.2.conv_last |    32.768K             |           |
+|   cell_list.3            |   4.129M               |   0.391T  |
+|    cell_list.3.conv_x.0  |    1.638M              |    0.195T |
+|    cell_list.3.conv_h.0  |    1.638M              |    0.195T |
+|    cell_list.3.conv_o.0  |    0.819M              |           |
+|    cell_list.3.conv_last |    32.768K             |           |
+|  conv_last               |  0.512K                |  61.047M  |
+|   conv_last.weight       |   (4, 128, 1, 1)       |           |
+--------------------------------------------------------------------------------
+
+2024-02-22 10:55:22,789 - Epoch 1: Lr: 0.0000400 | Train Loss: 0.0038239 | Vali Loss: 0.0461091
+2024-02-22 11:02:35,554 - Epoch 2: Lr: 0.0000400 | Train Loss: 0.0020749 | Vali Loss: 0.0070541
+2024-02-22 11:09:47,954 - Epoch 3: Lr: 0.0000400 | Train Loss: 0.0017440 | Vali Loss: 0.0100790
+2024-02-22 11:17:00,183 - Epoch 4: Lr: 0.0000400 | Train Loss: 0.0016222 | Vali Loss: 0.0148255
+2024-02-22 11:24:12,126 - Epoch 5: Lr: 0.0000400 | Train Loss: 0.0015576 | Vali Loss: 0.0164643
+2024-02-22 11:31:24,106 - Epoch 6: Lr: 0.0000400 | Train Loss: 0.0015331 | Vali Loss: 0.0069774
+2024-02-22 11:38:36,330 - Epoch 7: Lr: 0.0000400 | Train Loss: 0.0014717 | Vali Loss: 0.0095986
+2024-02-22 11:45:47,609 - Epoch 8: Lr: 0.0000400 | Train Loss: 0.0014530 | Vali Loss: 0.0056026
+2024-02-22 11:52:59,198 - Epoch 9: Lr: 0.0000400 | Train Loss: 0.0014144 | Vali Loss: 0.0065894
+2024-02-22 12:00:10,529 - Epoch 10: Lr: 0.0000400 | Train Loss: 0.0013484 | Vali Loss: 0.0062160
+2024-02-22 12:07:22,430 - Epoch 11: Lr: 0.0000400 | Train Loss: 0.0012686 | Vali Loss: 0.0057456
+2024-02-22 12:14:34,335 - Epoch 12: Lr: 0.0000400 | Train Loss: 0.0012104 | Vali Loss: 0.0085948
+2024-02-22 12:21:46,252 - Epoch 13: Lr: 0.0000400 | Train Loss: 0.0011665 | Vali Loss: 0.0055992
+2024-02-22 12:28:58,465 - Epoch 14: Lr: 0.0000400 | Train Loss: 0.0011373 | Vali Loss: 0.0134628
+2024-02-22 12:36:10,416 - Epoch 15: Lr: 0.0000400 | Train Loss: 0.0011541 | Vali Loss: 0.0059415
+2024-02-22 12:43:22,328 - Epoch 16: Lr: 0.0000400 | Train Loss: 0.0010868 | Vali Loss: 0.0058570
+2024-02-22 12:50:34,283 - Epoch 17: Lr: 0.0000400 | Train Loss: 0.0010449 | Vali Loss: 0.0053666
+2024-02-22 12:57:46,555 - Epoch 18: Lr: 0.0000400 | Train Loss: 0.0010458 | Vali Loss: 0.0067848
+2024-02-22 13:04:58,495 - Epoch 19: Lr: 0.0000400 | Train Loss: 0.0010209 | Vali Loss: 0.0064188
+2024-02-22 13:12:09,858 - Epoch 20: Lr: 0.0000400 | Train Loss: 0.0010321 | Vali Loss: 0.0055465
+2024-02-22 13:19:21,796 - Epoch 21: Lr: 0.0000400 | Train Loss: 0.0009896 | Vali Loss: 0.0044058
+2024-02-22 13:26:34,037 - Epoch 22: Lr: 0.0000400 | Train Loss: 0.0009945 | Vali Loss: 0.0069959
+2024-02-22 13:33:45,772 - Epoch 23: Lr: 0.0000400 | Train Loss: 0.0009697 | Vali Loss: 0.0045762
+2024-02-22 13:40:57,153 - Epoch 24: Lr: 0.0000400 | Train Loss: 0.0010041 | Vali Loss: 0.0077631
+2024-02-22 13:48:09,163 - Epoch 25: Lr: 0.0000400 | Train Loss: 0.0009754 | Vali Loss: 0.0042382
+2024-02-22 13:55:20,762 - Epoch 26: Lr: 0.0000400 | Train Loss: 0.0009642 | Vali Loss: 0.0045719
+2024-02-22 14:02:32,742 - Epoch 27: Lr: 0.0000400 | Train Loss: 0.0009403 | Vali Loss: 0.0157250
+2024-02-22 14:09:44,713 - Epoch 28: Lr: 0.0000400 | Train Loss: 0.0009648 | Vali Loss: 0.0065600
+2024-02-22 14:16:56,669 - Epoch 29: Lr: 0.0000400 | Train Loss: 0.0009383 | Vali Loss: 0.0041013
+2024-02-22 14:24:08,492 - Epoch 30: Lr: 0.0000401 | Train Loss: 0.0009907 | Vali Loss: 0.0041353
+2024-02-22 14:31:20,497 - Epoch 31: Lr: 0.0000401 | Train Loss: 0.0009575 | Vali Loss: 0.0039120
+2024-02-22 14:38:32,285 - Epoch 32: Lr: 0.0000401 | Train Loss: 0.0009386 | Vali Loss: 0.0049164
+2024-02-22 14:45:43,644 - Epoch 33: Lr: 0.0000401 | Train Loss: 0.0009584 | Vali Loss: 0.0049787
+2024-02-22 14:52:55,942 - Epoch 34: Lr: 0.0000401 | Train Loss: 0.0009371 | Vali Loss: 0.0041894
+2024-02-22 15:00:07,856 - Epoch 35: Lr: 0.0000401 | Train Loss: 0.0009263 | Vali Loss: 0.0041046
+2024-02-22 15:07:19,486 - Epoch 36: Lr: 0.0000401 | Train Loss: 0.0009488 | Vali Loss: 0.0062542
+2024-02-22 15:14:31,456 - Epoch 37: Lr: 0.0000401 | Train Loss: 0.0009632 | Vali Loss: 0.0049062
+2024-02-22 15:21:43,478 - Epoch 38: Lr: 0.0000401 | Train Loss: 0.0009610 | Vali Loss: 0.0048689
+2024-02-22 15:28:54,851 - Epoch 39: Lr: 0.0000401 | Train Loss: 0.0009378 | Vali Loss: 0.0040499
+2024-02-22 15:36:06,906 - Epoch 40: Lr: 0.0000401 | Train Loss: 0.0009701 | Vali Loss: 0.0037217
+2024-02-22 15:43:18,581 - Epoch 41: Lr: 0.0000401 | Train Loss: 0.0009308 | Vali Loss: 0.0045652
+2024-02-22 15:50:30,561 - Epoch 42: Lr: 0.0000401 | Train Loss: 0.0009638 | Vali Loss: 0.0046595
+2024-02-22 15:57:42,510 - Epoch 43: Lr: 0.0000401 | Train Loss: 0.0009655 | Vali Loss: 0.0045445
+2024-02-22 16:04:54,639 - Epoch 44: Lr: 0.0000401 | Train Loss: 0.0009628 | Vali Loss: 0.0046863
+2024-02-22 16:12:06,728 - Epoch 45: Lr: 0.0000401 | Train Loss: 0.0009681 | Vali Loss: 0.0039354
+2024-02-22 16:19:18,110 - Epoch 46: Lr: 0.0000401 | Train Loss: 0.0009473 | Vali Loss: 0.0047250
+2024-02-22 16:26:30,074 - Epoch 47: Lr: 0.0000401 | Train Loss: 0.0009699 | Vali Loss: 0.0038522
+2024-02-22 16:33:41,458 - Epoch 48: Lr: 0.0000401 | Train Loss: 0.0009768 | Vali Loss: 0.0077456
+2024-02-22 16:40:52,817 - Epoch 49: Lr: 0.0000401 | Train Loss: 0.0009575 | Vali Loss: 0.0040369
+2024-02-22 16:41:25,974 - mse:83.09501647949219, mae:620.2269897460938
