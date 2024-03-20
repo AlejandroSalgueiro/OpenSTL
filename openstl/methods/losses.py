@@ -119,9 +119,6 @@ class VGGPerceptualLoss(nn.Module):
         super(VGGPerceptualLoss, self).__init__()
         blocks = []
         blocks.append(torchvision.models.vgg16(weights=torchvision.models.VGG16_Weights.DEFAULT).features[:4].eval().cuda())
-        blocks.append(torchvision.models.vgg16(weights=torchvision.models.VGG16_Weights.DEFAULT).features[4:9].eval().cuda())
-        blocks.append(torchvision.models.vgg16(weights=torchvision.models.VGG16_Weights.DEFAULT).features[9:16].eval().cuda())
-        blocks.append(torchvision.models.vgg16(weights=torchvision.models.VGG16_Weights.DEFAULT).features[16:23].eval().cuda())
         for bl in blocks:
             for p in bl.parameters():
                 p.requires_grad = False

@@ -22,7 +22,7 @@ class WaST(SimVP):
         self.log('train_loss', loss, on_step=True, on_epoch=True, prog_bar=True)
 
         if hasattr(self, 'drop_scheduler'):
-            if self.drop_scheduler != None:
+            if self.drop_scheduler.all() != None:
                 steps = self.current_epoch * self.steps_per_epoch + batch_idx
                 self.model.update_drop_path(drop_path_rate=self.drop_scheduler[steps])
         return loss

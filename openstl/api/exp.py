@@ -64,7 +64,7 @@ class BaseExperiment(object):
 
     def _init_trainer(self, args, callbacks, strategy):
         trainer_config = {
-            'profiler': self.profiler,
+            # 'profiler': self.profiler,
             'logger': self.logger,
             'devices': args.gpus,  # Use the all GPUs
             'max_epochs': args.epoch,  # Maximum number of epochs to train for
@@ -93,7 +93,7 @@ class BaseExperiment(object):
 
         ckpt_callback = BestCheckpointCallback(
             monitor=args.metric_for_bestckpt,
-            filename='best-{epoch:02d}-{val_loss:.3f}',
+            filename=f'{self.args.method}_{self.args.loss}_{self.args.epoch}epochs_{self.args.model_num}_'+'best-{epoch:02d}-{val_loss:.5f}',
             mode='min',
             save_last=True,
             dirpath=ckpt_dir,
