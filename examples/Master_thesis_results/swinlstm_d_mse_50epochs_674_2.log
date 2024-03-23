@@ -1,0 +1,546 @@
+2024-03-22 10:25:46,703 - Environment info:
+------------------------------------------------------------
+sys.platform: win32
+Python: 3.10.8 | packaged by conda-forge | (main, Nov 22 2022, 08:16:33) [MSC v.1929 64 bit (AMD64)]
+CUDA available: True
+CUDA_HOME: C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.3
+NVCC: Not Available
+GPU 0: NVIDIA GeForce RTX 4080
+GCC: <built-in method strip of str object at 0x00000210B617E7F0>
+PyTorch: 2.1.0
+PyTorch compiling details: PyTorch built with:
+  - C++ Version: 199711
+  - MSVC 192930151
+  - Intel(R) Math Kernel Library Version 2020.0.2 Product Build 20200624 for Intel(R) 64 architecture applications
+  - Intel(R) MKL-DNN v3.1.1 (Git Hash 64f6bcbcbab628e96f33a62c3e975f8535a7bde4)
+  - OpenMP 2019
+  - LAPACK is enabled (usually provided by MKL)
+  - CPU capability usage: AVX512
+  - CUDA Runtime 12.1
+  - NVCC architecture flags: -gencode;arch=compute_50,code=sm_50;-gencode;arch=compute_60,code=sm_60;-gencode;arch=compute_61,code=sm_61;-gencode;arch=compute_70,code=sm_70;-gencode;arch=compute_75,code=sm_75;-gencode;arch=compute_80,code=sm_80;-gencode;arch=compute_86,code=sm_86;-gencode;arch=compute_90,code=sm_90
+  - CuDNN 8.8.1  (built against CUDA 12.0)
+  - Magma 2.5.4
+  - Build settings: BLAS_INFO=mkl, BUILD_TYPE=Release, CUDA_VERSION=12.1, CUDNN_VERSION=8.8.1, CXX_COMPILER=C:/cb/pytorch_1000000000000/work/tmp_bin/sccache-cl.exe, CXX_FLAGS=/DWIN32 /D_WINDOWS /GR /EHsc /bigobj /FS -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DUSE_FBGEMM -DUSE_XNNPACK -DSYMBOLICATE_MOBILE_DEBUG_HANDLE /utf-8 /wd4624 /wd4068 /wd4067 /wd4267 /wd4661 /wd4717 /wd4244 /wd4804 /wd4273, LAPACK_INFO=mkl, PERF_WITH_AVX=1, PERF_WITH_AVX2=1, PERF_WITH_AVX512=1, TORCH_DISABLE_GPU_ASSERTS=OFF, TORCH_VERSION=2.1.0, USE_CUDA=ON, USE_CUDNN=ON, USE_EXCEPTION_PTR=1, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_MKL=ON, USE_MKLDNN=ON, USE_MPI=OFF, USE_NCCL=OFF, USE_NNPACK=OFF, USE_OPENMP=ON, USE_ROCM=OFF, 
+
+TorchVision: 0.16.0
+OpenCV: 4.8.1
+openstl: 1.0.0
+------------------------------------------------------------
+
+2024-03-22 10:25:46,704 - 
+device: 	cuda	
+dist: 	False	
+res_dir: 	work_dirs	
+ex_name: 	custom_exp	
+fp16: 	False	
+torchscript: 	False	
+seed: 	42	
+fps: 	False	
+test: 	False	
+deterministic: 	False	
+batch_size: 	1	
+val_batch_size: 	1	
+num_workers: 	8	
+data_root: 	./data	
+dataname: 	custom	
+pre_seq_length: 	12	
+aft_seq_length: 	12	
+total_length: 	24	
+use_augment: 	False	
+use_prefetcher: 	False	
+drop_last: 	False	
+method: 	swinlstm_d	
+config_file: 	None	
+model_type: 	gSTA	
+drop: 	0.0	
+drop_path: 	0.1	
+overwrite: 	False	
+loss: 	mse	
+epoch: 	50	
+log_step: 	1	
+opt: 	adam	
+opt_eps: 	None	
+opt_betas: 	None	
+momentum: 	0.9	
+weight_decay: 	0.0	
+clip_grad: 	None	
+clip_mode: 	norm	
+no_display_method_info: 	False	
+sched: 	onecycle	
+lr: 	0.001	
+lr_k_decay: 	1.0	
+warmup_lr: 	1e-06	
+min_lr: 	1e-06	
+final_div_factor: 	10000.0	
+warmup_epoch: 	5	
+decay_epoch: 	100	
+decay_rate: 	0.1	
+filter_bias_and_bn: 	False	
+gpus: 	[0]	
+metric_for_bestckpt: 	val_loss	
+metrics: 	['mae', 'mse']	
+in_shape: 	[12, 1, 144, 144]	
+depths_downsample: 	2,6	
+depths_upsample: 	6,2	
+num_heads: 	8,16	
+patch_size: 	2	
+window_size: 	6	
+embed_dim: 	160	
+model_num: 	8	
+2024-03-22 10:25:46,704 - Model info:
+SwinLSTM_D_Model(
+  (Downsample): DownSample(
+    (patch_embed): PatchEmbed(
+      (proj): Conv2d(1, 160, kernel_size=(2, 2), stride=(2, 2))
+      (norm): LayerNorm((160,), eps=1e-05, elementwise_affine=True)
+    )
+    (layers): ModuleList(
+      (0): SwinLSTMCell(
+        (STBs): ModuleList(
+          (0): STB(
+            (norm1): LayerNorm((160,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=160, out_features=480, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=160, out_features=160, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): Identity()
+            (norm2): LayerNorm((160,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=160, out_features=640, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=640, out_features=160, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=320, out_features=160, bias=True)
+          )
+          (1): STB(
+            (norm1): LayerNorm((160,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=160, out_features=480, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=160, out_features=160, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): DropPath(drop_prob=0.014)
+            (norm2): LayerNorm((160,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=160, out_features=640, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=640, out_features=160, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=320, out_features=160, bias=True)
+          )
+        )
+      )
+      (1): SwinLSTMCell(
+        (STBs): ModuleList(
+          (0): STB(
+            (norm1): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=320, out_features=960, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=320, out_features=320, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): DropPath(drop_prob=0.029)
+            (norm2): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=320, out_features=1280, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=1280, out_features=320, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=640, out_features=320, bias=True)
+          )
+          (1): STB(
+            (norm1): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=320, out_features=960, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=320, out_features=320, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): DropPath(drop_prob=0.043)
+            (norm2): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=320, out_features=1280, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=1280, out_features=320, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=640, out_features=320, bias=True)
+          )
+          (2): STB(
+            (norm1): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=320, out_features=960, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=320, out_features=320, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): DropPath(drop_prob=0.057)
+            (norm2): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=320, out_features=1280, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=1280, out_features=320, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=640, out_features=320, bias=True)
+          )
+          (3): STB(
+            (norm1): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=320, out_features=960, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=320, out_features=320, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): DropPath(drop_prob=0.071)
+            (norm2): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=320, out_features=1280, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=1280, out_features=320, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=640, out_features=320, bias=True)
+          )
+          (4): STB(
+            (norm1): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=320, out_features=960, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=320, out_features=320, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): DropPath(drop_prob=0.086)
+            (norm2): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=320, out_features=1280, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=1280, out_features=320, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=640, out_features=320, bias=True)
+          )
+          (5): STB(
+            (norm1): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=320, out_features=960, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=320, out_features=320, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): DropPath(drop_prob=0.100)
+            (norm2): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=320, out_features=1280, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=1280, out_features=320, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=640, out_features=320, bias=True)
+          )
+        )
+      )
+    )
+    (downsample): ModuleList(
+      (0): PatchMerging(
+        (norm): LayerNorm((640,), eps=1e-05, elementwise_affine=True)
+        (reduction): Linear(in_features=640, out_features=320, bias=False)
+      )
+      (1): PatchMerging(
+        (norm): LayerNorm((1280,), eps=1e-05, elementwise_affine=True)
+        (reduction): Linear(in_features=1280, out_features=640, bias=False)
+      )
+    )
+  )
+  (Upsample): UpSample(
+    (patch_embed): PatchEmbed(
+      (proj): Conv2d(1, 160, kernel_size=(2, 2), stride=(2, 2))
+      (norm): LayerNorm((160,), eps=1e-05, elementwise_affine=True)
+    )
+    (Unembed): PatchInflated(
+      (Conv): ConvTranspose2d(160, 1, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), output_padding=(1, 1))
+    )
+    (layers): ModuleList(
+      (0): SwinLSTMCell(
+        (STBs): ModuleList(
+          (0): STB(
+            (norm1): LayerNorm((640,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=640, out_features=1920, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=640, out_features=640, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): DropPath(drop_prob=0.100)
+            (norm2): LayerNorm((640,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=640, out_features=2560, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=2560, out_features=640, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=1280, out_features=640, bias=True)
+          )
+          (1): STB(
+            (norm1): LayerNorm((640,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=640, out_features=1920, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=640, out_features=640, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): DropPath(drop_prob=0.086)
+            (norm2): LayerNorm((640,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=640, out_features=2560, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=2560, out_features=640, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=1280, out_features=640, bias=True)
+          )
+        )
+      )
+      (1): SwinLSTMCell(
+        (STBs): ModuleList(
+          (0): STB(
+            (norm1): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=320, out_features=960, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=320, out_features=320, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): DropPath(drop_prob=0.071)
+            (norm2): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=320, out_features=1280, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=1280, out_features=320, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=640, out_features=320, bias=True)
+          )
+          (1): STB(
+            (norm1): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=320, out_features=960, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=320, out_features=320, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): DropPath(drop_prob=0.057)
+            (norm2): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=320, out_features=1280, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=1280, out_features=320, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=640, out_features=320, bias=True)
+          )
+          (2): STB(
+            (norm1): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=320, out_features=960, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=320, out_features=320, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): DropPath(drop_prob=0.043)
+            (norm2): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=320, out_features=1280, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=1280, out_features=320, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=640, out_features=320, bias=True)
+          )
+          (3): STB(
+            (norm1): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=320, out_features=960, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=320, out_features=320, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): DropPath(drop_prob=0.029)
+            (norm2): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=320, out_features=1280, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=1280, out_features=320, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=640, out_features=320, bias=True)
+          )
+          (4): STB(
+            (norm1): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=320, out_features=960, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=320, out_features=320, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): DropPath(drop_prob=0.014)
+            (norm2): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=320, out_features=1280, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=1280, out_features=320, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=640, out_features=320, bias=True)
+          )
+          (5): STB(
+            (norm1): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (attn): WindowAttention(
+              (qkv): Linear(in_features=320, out_features=960, bias=True)
+              (attn_drop): Dropout(p=0.0, inplace=False)
+              (proj): Linear(in_features=320, out_features=320, bias=True)
+              (proj_drop): Dropout(p=0.0, inplace=False)
+              (softmax): Softmax(dim=-1)
+            )
+            (drop_path): Identity()
+            (norm2): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+            (mlp): Mlp(
+              (fc1): Linear(in_features=320, out_features=1280, bias=True)
+              (act): GELU(approximate='none')
+              (drop1): Dropout(p=0.0, inplace=False)
+              (fc2): Linear(in_features=1280, out_features=320, bias=True)
+              (drop2): Dropout(p=0.0, inplace=False)
+            )
+            (red): Linear(in_features=640, out_features=320, bias=True)
+          )
+        )
+      )
+    )
+    (upsample): ModuleList(
+      (0): PatchExpanding(
+        (expand): Linear(in_features=640, out_features=1280, bias=False)
+        (norm): LayerNorm((320,), eps=1e-05, elementwise_affine=True)
+      )
+      (1): PatchExpanding(
+        (expand): Linear(in_features=320, out_features=640, bias=False)
+        (norm): LayerNorm((160,), eps=1e-05, elementwise_affine=True)
+      )
+    )
+  )
+  (criterion): MSELoss()
+)
+| module                          | #parameters or shape   | #flops     |
+|:--------------------------------|:-----------------------|:-----------|
+| model                           | 31.545M                | 0.674T     |
+|  Downsample                     |  10.392M               |  0.338T    |
+|   Downsample.patch_embed        |   1.12K                |   0.172G   |
+|    Downsample.patch_embed.proj  |    0.8K                |    76.308M |
+|    Downsample.patch_embed.norm  |    0.32K               |    95.386M |
+|   Downsample.layers             |   9.363M               |   0.326T   |
+|    Downsample.layers.0.STBs     |    0.723M              |    82.585G |
+|    Downsample.layers.1.STBs     |    8.64M               |    0.243T  |
+|   Downsample.downsample         |   1.028M               |   12.352G  |
+|    Downsample.downsample.0      |    0.206M              |    6.2G    |
+|    Downsample.downsample.1      |    0.822M              |    6.152G  |
+|  Upsample                       |  21.152M               |  0.336T    |
+|   Upsample.patch_embed          |   1.12K                |            |
+|    Upsample.patch_embed.proj    |    0.8K                |            |
+|    Upsample.patch_embed.norm    |    0.32K               |            |
+|   Upsample.Unembed.Conv         |   1.441K               |   0.172G   |
+|    Upsample.Unembed.Conv.weight |    (160, 1, 3, 3)      |            |
+|    Upsample.Unembed.Conv.bias   |    (1,)                |            |
+|   Upsample.layers               |   20.125M              |   0.323T   |
+|    Upsample.layers.0.STBs       |    11.491M             |    80.167G |
+|    Upsample.layers.1.STBs       |    8.634M              |    0.243T  |
+|   Upsample.upsample             |   1.025M               |   12.352G  |
+|    Upsample.upsample.0          |    0.82M               |    6.152G  |
+|    Upsample.upsample.1          |    0.205M              |    6.2G    |
+--------------------------------------------------------------------------------
+
+2024-03-22 11:17:58,934 - Epoch 1: Lr: 0.0000400 | Train Loss: 0.0103915 | Vali Loss: 0.0082890
+2024-03-22 11:44:09,959 - Epoch 2: Lr: 0.0000400 | Train Loss: 0.0077963 | Vali Loss: 0.0070567
+2024-03-22 12:10:10,037 - Epoch 3: Lr: 0.0000400 | Train Loss: 0.0054756 | Vali Loss: 0.0069355
+2024-03-22 12:35:49,671 - Epoch 4: Lr: 0.0000400 | Train Loss: 0.0052824 | Vali Loss: 0.0063170
+2024-03-22 13:01:13,191 - Epoch 5: Lr: 0.0000400 | Train Loss: 0.0047068 | Vali Loss: 0.0061921
+2024-03-22 13:25:57,127 - Epoch 6: Lr: 0.0000400 | Train Loss: 0.0045091 | Vali Loss: 0.0061363
+2024-03-22 13:50:42,263 - Epoch 7: Lr: 0.0000400 | Train Loss: 0.0044182 | Vali Loss: 0.0058875
+2024-03-22 14:15:38,867 - Epoch 8: Lr: 0.0000400 | Train Loss: 0.0042359 | Vali Loss: 0.0059048
+2024-03-22 14:40:21,264 - Epoch 9: Lr: 0.0000400 | Train Loss: 0.0040703 | Vali Loss: 0.0058340
+2024-03-22 15:05:17,048 - Epoch 10: Lr: 0.0000400 | Train Loss: 0.0041003 | Vali Loss: 0.0056308
+2024-03-22 15:29:55,466 - Epoch 11: Lr: 0.0000400 | Train Loss: 0.0039590 | Vali Loss: 0.0055480
+2024-03-22 15:55:00,972 - Epoch 12: Lr: 0.0000400 | Train Loss: 0.0039520 | Vali Loss: 0.0060931
+2024-03-22 16:20:12,297 - Epoch 13: Lr: 0.0000400 | Train Loss: 0.0038307 | Vali Loss: 0.0054189
+2024-03-22 16:45:34,691 - Epoch 14: Lr: 0.0000400 | Train Loss: 0.0037907 | Vali Loss: 0.0052834
+2024-03-22 17:11:08,128 - Epoch 15: Lr: 0.0000400 | Train Loss: 0.0037461 | Vali Loss: 0.0052837
+2024-03-22 17:37:08,083 - Epoch 16: Lr: 0.0000400 | Train Loss: 0.0036576 | Vali Loss: 0.0053453
+2024-03-22 18:03:51,415 - Epoch 17: Lr: 0.0000400 | Train Loss: 0.0036434 | Vali Loss: 0.0052722
+2024-03-22 18:31:12,632 - Epoch 18: Lr: 0.0000400 | Train Loss: 0.0035911 | Vali Loss: 0.0056519
+2024-03-22 18:59:20,860 - Epoch 19: Lr: 0.0000400 | Train Loss: 0.0036096 | Vali Loss: 0.0051253
+2024-03-22 19:24:36,524 - Epoch 20: Lr: 0.0000400 | Train Loss: 0.0035243 | Vali Loss: 0.0052947
+2024-03-22 19:54:50,133 - Epoch 21: Lr: 0.0000400 | Train Loss: 0.0035289 | Vali Loss: 0.0051631
+2024-03-22 20:21:49,937 - Epoch 22: Lr: 0.0000400 | Train Loss: 0.0034603 | Vali Loss: 0.0052380
+2024-03-22 20:48:04,364 - Epoch 23: Lr: 0.0000400 | Train Loss: 0.0034489 | Vali Loss: 0.0051252
+2024-03-22 21:13:29,213 - Epoch 24: Lr: 0.0000400 | Train Loss: 0.0034386 | Vali Loss: 0.0051517
+2024-03-22 21:38:31,211 - Epoch 25: Lr: 0.0000400 | Train Loss: 0.0033984 | Vali Loss: 0.0053427
+2024-03-22 22:03:34,332 - Epoch 26: Lr: 0.0000400 | Train Loss: 0.0034029 | Vali Loss: 0.0051748
+2024-03-22 22:28:43,811 - Epoch 27: Lr: 0.0000400 | Train Loss: 0.0033752 | Vali Loss: 0.0051733
+2024-03-22 22:53:42,158 - Epoch 28: Lr: 0.0000400 | Train Loss: 0.0033194 | Vali Loss: 0.0050653
+2024-03-22 23:18:38,150 - Epoch 29: Lr: 0.0000400 | Train Loss: 0.0033215 | Vali Loss: 0.0051671
+2024-03-22 23:44:12,253 - Epoch 30: Lr: 0.0000400 | Train Loss: 0.0033016 | Vali Loss: 0.0052266
+2024-03-23 00:10:13,181 - Epoch 31: Lr: 0.0000400 | Train Loss: 0.0032814 | Vali Loss: 0.0049828
+2024-03-23 00:36:28,992 - Epoch 32: Lr: 0.0000400 | Train Loss: 0.0032572 | Vali Loss: 0.0049919
+2024-03-23 01:02:47,287 - Epoch 33: Lr: 0.0000400 | Train Loss: 0.0032249 | Vali Loss: 0.0051330
+2024-03-23 01:28:57,802 - Epoch 34: Lr: 0.0000400 | Train Loss: 0.0032180 | Vali Loss: 0.0050048
+2024-03-23 01:53:46,200 - Epoch 35: Lr: 0.0000400 | Train Loss: 0.0031802 | Vali Loss: 0.0050249
+2024-03-23 02:18:12,181 - Epoch 36: Lr: 0.0000400 | Train Loss: 0.0031893 | Vali Loss: 0.0050428
+2024-03-23 02:42:42,832 - Epoch 37: Lr: 0.0000400 | Train Loss: 0.0031830 | Vali Loss: 0.0050718
+2024-03-23 03:07:11,942 - Epoch 38: Lr: 0.0000400 | Train Loss: 0.0031376 | Vali Loss: 0.0050142
+2024-03-23 03:31:44,808 - Epoch 39: Lr: 0.0000400 | Train Loss: 0.0031466 | Vali Loss: 0.0049827
+2024-03-23 03:56:17,762 - Epoch 40: Lr: 0.0000400 | Train Loss: 0.0031157 | Vali Loss: 0.0050259
+2024-03-23 04:21:07,030 - Epoch 41: Lr: 0.0000400 | Train Loss: 0.0031057 | Vali Loss: 0.0051007
+2024-03-23 04:46:07,475 - Epoch 42: Lr: 0.0000400 | Train Loss: 0.0030844 | Vali Loss: 0.0038823
+2024-03-23 05:11:05,654 - Epoch 43: Lr: 0.0000400 | Train Loss: 0.0024551 | Vali Loss: 0.0039399
+2024-03-23 05:36:05,207 - Epoch 44: Lr: 0.0000400 | Train Loss: 0.0020986 | Vali Loss: 0.0043594
+2024-03-23 06:00:59,688 - Epoch 45: Lr: 0.0000400 | Train Loss: 0.0019907 | Vali Loss: 0.0039286
+2024-03-23 06:25:55,847 - Epoch 46: Lr: 0.0000400 | Train Loss: 0.0020740 | Vali Loss: 0.0040507
+2024-03-23 06:50:54,700 - Epoch 47: Lr: 0.0000400 | Train Loss: 0.0019733 | Vali Loss: 0.0039326
+2024-03-23 07:15:54,829 - Epoch 48: Lr: 0.0000400 | Train Loss: 0.0020186 | Vali Loss: 0.0038213
+2024-03-23 07:40:57,698 - Epoch 49: Lr: 0.0000400 | Train Loss: 0.0019272 | Vali Loss: 0.0039755
+2024-03-23 07:42:51,361 - mse:82.71682739257812, mae:655.9812622070312
